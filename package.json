@@ -1,0 +1,24 @@
+{
+  "name": "inter-database",
+  "version": "1.0.0",
+  "description": "Framework to comunnicate with databases",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Desenho-2017-1/Inter-Database.git"
+  },
+  "keywords": [
+    "database",
+    "nodejs",
+    "sqlserver"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Desenho-2017-1/Inter-Database/issues"
+  },
+  "homepage": "https://gitlab.com/Desenho-2017-1/Inter-Database#README"
+}

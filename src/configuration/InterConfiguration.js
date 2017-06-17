@@ -11,7 +11,7 @@ class InterConfiguration {
       this.databasePassword = databasePassword
     }
   }
-  
+    
   static getConfiguration () {
     if (this === InterConfiguration) {
       // Error: Abstract methods can not be called directly.

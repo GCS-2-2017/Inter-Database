@@ -28,7 +28,9 @@
     "babel-preset-stage-2": "^6.24.1",
     "express": "^4.15.3",
     "mocha": "^3.4.2",
+    "tedious-promises": "^0.4.1",
+    "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
-    "tedious-promises": "^0.4.1"
+    "pg": "^6.2.4"
   }
 }

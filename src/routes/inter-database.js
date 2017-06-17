@@ -7,7 +7,7 @@ export default () => {
 
   // This method was created as test
   // app.get('/', (request, response) => {
-  //  interDatabaseController.test()
+  //  interDatabaseController.test(request, response)
   // })
 
   return app

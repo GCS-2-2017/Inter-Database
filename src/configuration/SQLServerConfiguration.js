@@ -1,17 +1,18 @@
 'use strict'
 
-import sqlserver from 'tedious-promises'
+import tp from 'tedious-promises'
+import _ from 'lodash'
 import InterConfiguration from './InterConfiguration'
 
 class SQLServerConfiguration extends InterConfiguration {
-  constructor (databaseName, databaseServer, databaseUser, databasePassword, databasePort) {
-    super(databaseName, databaseServer, databaseUser, databasePassword)
+  constructor (databaseUser, databasePassword, databaseServer,  databasePort) {
+    super(databaseServer, databaseUser, databasePassword)
     this.databasePort = databasePort
   }
 
   getConfiguration () {
-    var connection = sqlserver.setConnectionConfig({
-      userName : this.databaseName,
+    var connection = tp.setConnectionConfig({
+      userName : this.databaseUser,
       password: this.databasePassword,
       server : this.databaseServer,
       options : {
@@ -19,6 +20,8 @@ class SQLServerConfiguration extends InterConfiguration {
 			  port: this.databasePort
       }
     })
+    // console.log('Connected in db: ', _.omit(connection, 'password'))
+    console.log(connection)
     return connection
   }
 }

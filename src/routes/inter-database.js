@@ -6,9 +6,9 @@ export default () => {
   let interDatabaseController = new InterDatabaseController()
 
   // This method was created as test
-  // app.get('/', (request, response) => {
-  //  interDatabaseController.test(request, response)
-  // })
+  app.get('/', (request, response) => {
+   interDatabaseController.test()
+  })
 
   return app
 }

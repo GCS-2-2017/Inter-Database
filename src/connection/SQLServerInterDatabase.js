@@ -38,7 +38,26 @@ class SQLServerDatabase extends InterDatabase {
   }
 
   async update (table, condition, object) {
-    let query = 'UPDATE ' + table  + ' SET ' +  formatObject(object) + ' WHERE ' + formatObject(condition) + ';'
+    const query = 'UPDATE ' + table  + ' SET ' +  formatObject(object) + ' WHERE ' + formatObject(condition) + ';'
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async delete (argument, table, condition) {
+    let query = ''
+    if (object !== undefined) {
+      query = 'DELETE FROM ' + table + ' WHERE ' +  formatObject(condition) + ';'
+    } else if (condition !== undefined){
+      query = 'DELETE ' + argument + ' FROM ' + table + ';'
+    } else {
+      // Nothing to do
+    }
+    
     try {
       const result = await this.connection.sql(query).execute()
       return result

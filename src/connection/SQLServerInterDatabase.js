@@ -2,7 +2,7 @@
 
 import InterConfiguration from './InterConfiguration'
 import configuration from '../configuration/SQLServerConfiguration'
-import { formatQuery } from '../helpers/connection'
+import { formatObject, formatInserValues } from '../helpers/connection'
 
 class SQLServerDatabase extends InterDatabase {
   constructor (connection) {
@@ -13,7 +13,7 @@ class SQLServerDatabase extends InterDatabase {
   async select (talbe, argument, object) {
     let query = ''
     if (object !== undefined) {
-      query = 'SELECT ' + argument + ' FROM' + table + ' WHERE ' + formatQuery(object) + ';'
+      query = 'SELECT ' + argument + ' FROM' + table + ' WHERE ' + formatObject(object) + ';'
     } else {
       query = 'SELECT ' + argument + ' FROM' + table + ';'
     }
@@ -26,9 +26,15 @@ class SQLServerDatabase extends InterDatabase {
     }
   }
 
-  insert (table, object) {
-    const query = 'INSERT INTO' + table + 'VALUES' + object
-    this.connection.sql(query).execute()
+  async insert (table, object) {
+    const query = 'INSERT INTO ' + table + ' VALUES (' + formatInsertValues(object) + ');'
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 }
 

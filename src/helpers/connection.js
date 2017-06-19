@@ -1,4 +1,4 @@
-formatQuery (object) => {
+formatObject (object) => {
   let query = ''
   for (var attribute of object) {
     query += attribute + '=' + object[attribute] + ','
@@ -7,4 +7,13 @@ formatQuery (object) => {
   return query
 }
 
-export { formatQuery }
+formatInsertValues(object) {
+  let query = ''
+  for (var attribute of object) {
+    query += '"' + object[attribute] + '",'
+  }
+  query = query.slice(0, -1)
+  return query
+}
+
+export { formatObject, formatInsertValues }

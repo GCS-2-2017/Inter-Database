@@ -10,7 +10,7 @@ class SQLServerDatabase extends InterDatabase {
     this.connection = connection
   }
 
-  async select (talbe, argument, object) {
+  async select (table, argument, object) {
     let query = ''
     if (object !== undefined) {
       query = 'SELECT ' + argument + ' FROM' + table + ' WHERE ' + formatObject(object) + ';'
@@ -28,6 +28,17 @@ class SQLServerDatabase extends InterDatabase {
 
   async insert (table, object) {
     const query = 'INSERT INTO ' + table + ' VALUES (' + formatInsertValues(object) + ');'
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async update (table, condition, object) {
+    let query = 'UPDATE ' + table  + ' SET ' +  formatObject(object) + ' WHERE ' + formatObject(condition) + ';'
     try {
       const result = await this.connection.sql(query).execute()
       return result

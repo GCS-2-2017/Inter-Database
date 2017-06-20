@@ -2,4 +2,4 @@
 // Here we will let available what the user needs
 
 
-module.exports = require('./lib/consumption/InterDatabaseModel')
+module.exports = require('./lib/consumption/InterDatabase')

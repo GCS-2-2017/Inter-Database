@@ -4,13 +4,15 @@ import MySQL from '../lib/configuration/dbs/MySQL'
 const expect = chai.expect
 
 describe('MySQL instantiation with arguments', () => {
-  it('should accept four parameters (databaseName, databaseServer, databaseUser, databasePassword)', () => {
-    const SQL = new MySQL('test', 'localhost', 'root', 'root')
-    const CONFIG = SQL.getConfiguration().config
+  it('should accept four parameters (database, user, password, options)', () => {
+    const SQL = new MySQL('test', 'root', 'root', {
+      host: 'localhost'
+    })
+    const SQL_CONNECTION = SQL.getConfiguration().config
 
-    expect(CONFIG.host).to.be.equal('localhost')
-    expect(CONFIG.user).to.be.equal('root')
-    expect(CONFIG.password).to.be.equal('root')
-    expect(CONFIG.database).to.be.equal('test')
+    expect(SQL_CONNECTION.host).to.be.equal('localhost')
+    expect(SQL_CONNECTION.user).to.be.equal('root')
+    expect(SQL_CONNECTION.password).to.be.equal('root')
+    expect(SQL_CONNECTION.database).to.be.equal('test')
   })
 })

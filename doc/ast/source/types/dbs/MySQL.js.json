@@ -1,0 +1,114 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 203,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 9,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 203,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 9,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [],
+    "directives": [],
+    "leadingComments": null,
+    "innerComments": [
+      {
+        "type": "CommentBlock",
+        "value": "*\n  This file defines the types compatible to MySQL databases\n  Ex:\n  STRING.prototype.toSql = function toSql() {\n    return 'VARCHAR(' + this._length + ')' + (this._binary ? ' BINARY' : '');\n  };\n\n",
+        "start": 0,
+        "end": 202,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 8,
+            "column": 2
+          }
+        }
+      }
+    ]
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n  This file defines the types compatible to MySQL databases\n  Ex:\n  STRING.prototype.toSql = function toSql() {\n    return 'VARCHAR(' + this._length + ')' + (this._binary ? ' BINARY' : '');\n  };\n\n",
+      "start": 0,
+      "end": 202,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n  This file defines the types compatible to MySQL databases\n  Ex:\n  STRING.prototype.toSql = function toSql() {\n    return 'VARCHAR(' + this._length + ')' + (this._binary ? ' BINARY' : '');\n  };\n\n",
+      "start": 0,
+      "end": 202,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 2
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 203,
+      "end": 203,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/configuration/InterConfiguration.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/InterConfiguration.js~InterConfiguration.html">InterConfiguration</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration/dbs</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/dbs/MySQL.js~MySQL.html">MySQL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/dbs/SQLServer.js~SQLServer.html">SQLServer</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">connection</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/InterConnection.js~InterDatabase.html">InterDatabase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">consumption</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/consumption/InterDatabase.js~InterDatabase.html">InterDatabase</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/configuration/InterConfiguration.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
+import _ from &apos;lodash&apos;
+
+class InterConfiguration {
+  /**
+  * Constructor implementation required
+  * @param {String}   [database=null] The name of the database.
+  * @param {String}   [user=null] The username which is used to authenticate against the database.
+  * @param {String}   [password=null] The password which is used to authenticate against the database.
+  * @param {Object}   [options={}] An object with further options to configure the database.
+  * @param {String}   [options.host=&apos;localhost&apos;] The host of the database. (If not overwritten is equals localhost)
+  * @param {Integer}  [options.port=] The port of the database.
+  * @param {String}   [options.type=&apos;sqlserver&apos;] The type of the database to connect with. (If not overwritten is equals sqlserver)
+  * @param {String}   [options.server=] The server of the database to connect with. (Only sqlserver)
+  * @exception {TypeError} thrown when tried to instatiate abstract class or required params are not provided
+  */
+  constructor (database, user, password, options) {
+    let config = {}
+
+    if (this.constructor !== InterConfiguration) { // Child only
+      if (arguments.length &gt;= 4 &amp;&amp; typeof options === &apos;object&apos;) {
+        config = {database, user, password}
+        options.host = options.host || &apos;localhost&apos;
+        options.type = options.type || &apos;sqlserver&apos;
+
+      } else {
+        // Temporary error
+        // TODO - Method Overload to handle different inputs in argument
+        throw new TypeError(&apos;Please provide all arguments to constructor (database, user, password, options)&apos;)
+      }
+    } else {
+      throw new TypeError(&apos;Cannot instantiate an abstract class&apos;)
+    }
+
+    this.config = {
+      database: config.database,
+      user: config.user,
+      password: config.password
+      // ...
+    }
+
+    options = options || {}
+
+    this.config = _.merge(this.config, options)
+  }
+
+  /**
+  * Implementation required
+  * @exception {TypeError} thrown when method is not implement on child class
+  */
+  getConnection () {
+    throw new TypeError(&apos;Do not call abstract method getConnection from child.&apos;)
+  }
+
+  /**
+  * @param {String}   [database=null] The name of the database.
+  * @param {String}   [user=null] The username which is used to authenticate against the database.
+  * @param {String}   [password=null] The password which is used to authenticate against the database.
+  * @param {Object}   [options={}] An object with further options to configure the database.
+  * @exception {Error} thrown when database is not yet supported by framework.
+  * @return {Object} actual instance based on database type
+  */
+  static getInstance (database, user, password, options) {
+    if (this !== InterConfiguration) {
+      return this
+    }
+
+    let DbStrategy
+
+    switch (options.type){
+      case &apos;mysql&apos;:
+        DbStrategy = require(&apos;./dbs/MySQL&apos;)
+        break
+      case &apos;sqlserver&apos;:
+        DbStrategy = require(&apos;./dbs/SQLServer&apos;)
+        break
+      default:
+        throw new Error(&apos;The class &apos; + options.type + &apos; is not yet supported. Implement your own and add it.&apos;)
+    }
+
+    return new DbStrategy.default(database, user, password, options)
+  }
+
+  /**
+  * @return {Object} config object setUp
+  */
+  getConfiguration () {
+    return this.config
+  }
+}
+
+module.exports = InterConfiguration
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

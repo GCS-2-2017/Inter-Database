@@ -43,6 +43,25 @@ describe('SQL Server connection', () => {
     }
   })
 
+  it('should use update method with two parameters (table, object)', async () => {
+    const SQL = new SQLServer('teste', 'sa','12345678', {
+      port: '9990',
+      server: '177.143.213.117'
+    })
+    const SqlServerConnection = new Connection(SQL)
+
+    const workshiftUpdate = { name: 'Workshift Test Update' }
+    const condition = { name: 'Workshift Test' }
+    const table = '[SEQUENCIALIZADOR].[dbo].[WorkShift]'
+
+    try {
+      var result = await SqlServerConnection.update(table, condition, workshiftUpdate)
+      expect(result).to.be.empty
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
   it('should use delete method with two parameters (table, object)', async () => {
     const SQL = new SQLServer('teste', 'sa','12345678', {
       port: '9990',

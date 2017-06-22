@@ -33,8 +33,33 @@ describe('SQL Server connection', () => {
       description: 'Workshift Framework Test'
     }
 
+    const table = '[SEQUENCIALIZADOR].[dbo].[WorkShift]'
+
     try {
-      var result = await SqlServerConnection.insert('[SEQUENCIALIZADOR].[dbo].[WorkShift]', workshift)
+      var result = await SqlServerConnection.insert(table, workshift)
+      expect(result).to.be.empty
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  it('should use delete method with two parameters (table, object)', async () => {
+    const SQL = new SQLServer('teste', 'sa','12345678', {
+      port: '9990',
+      server: '177.143.213.117'
+    })
+    const SqlServerConnection = new Connection(SQL)
+
+    const workshift = {
+      name: 'Workshift Test',
+      description: 'Workshift Framework Test'
+    }
+
+    const table = '[SEQUENCIALIZADOR].[dbo].[WorkShift]'
+    const condition = { name: 'Workshift Test' }
+
+    try {
+      var result = await SqlServerConnection.delete('*', table, condition)
       expect(result).to.be.empty
     } catch (error) {
       console.log(error)

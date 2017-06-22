@@ -1,0 +1,51 @@
+{
+  "coverage": "54.83%",
+  "expectCount": 31,
+  "actualCount": 17,
+  "files": {
+    "lib/configuration/InterConfiguration.js": {
+      "expectCount": 6,
+      "actualCount": 4,
+      "undocumentLines": [
+        4,
+        35
+      ]
+    },
+    "lib/connection/InterConnection.js": {
+      "expectCount": 15,
+      "actualCount": 13,
+      "undocumentLines": [
+        5,
+        6
+      ]
+    },
+    "lib/consumption/InterDatabase.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        7
+      ]
+    },
+    "lib/configuration/dbs/MySQL.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        10
+      ]
+    },
+    "lib/configuration/dbs/SQLServer.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        10,
+        13
+      ]
+    }
+  }
+}

@@ -10,7 +10,7 @@ describe('SQL Server instantiation with arguments', () => {
       server: '177.143.213.117'
     })
     const SQL_CONNECTION = SQL.getConfiguration()
-    
+
     expect(SQL_CONNECTION._mode).to.be.equal('single')
     expect(SQL_CONNECTION._option.userName).to.be.equal('sa')
     expect(SQL_CONNECTION._option.password).to.be.equal('12345678')

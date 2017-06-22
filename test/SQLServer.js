@@ -20,6 +20,7 @@ describe('SQL Server instantiation with arguments', () => {
   })
 })
 
+
 describe('SQL Server connection', () => {
   it('should use insert method with two parameters (table, object)', async () => {
     const SQL = new SQLServer('teste', 'sa','12345678', {
@@ -43,7 +44,24 @@ describe('SQL Server connection', () => {
     }
   })
 
-  it('should use update method with two parameters (table, object)', async () => {
+  it('should use select method with three parameters (table, argument,object)', async () => {
+    const SQL = new SQLServer('teste', 'sa','12345678', {
+      port: '9990',
+      server: '177.143.213.117'
+    })
+    const SqlServerConnection = new Connection(SQL)
+    const condition = { name: 'Workshift Test' }
+    const table = '[SEQUENCIALIZADOR].[dbo].[WorkShift]'
+
+    try {
+      var result = await SqlServerConnection.select(table, '*', condition)
+      expect(result).to.be.a('array')
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  it('should use update method with three parameters (table, condition, object)', async () => {
     const SQL = new SQLServer('teste', 'sa','12345678', {
       port: '9990',
       server: '177.143.213.117'
@@ -62,7 +80,7 @@ describe('SQL Server connection', () => {
     }
   })
 
-  it('should use delete method with two parameters (table, object)', async () => {
+  it('should use delete method with three parameters (argument, table, condition)', async () => {
     const SQL = new SQLServer('teste', 'sa','12345678', {
       port: '9990',
       server: '177.143.213.117'
@@ -84,4 +102,5 @@ describe('SQL Server connection', () => {
       console.log(error)
     }
   })
+
 })

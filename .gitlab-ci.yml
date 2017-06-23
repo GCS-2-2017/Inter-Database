@@ -19,7 +19,7 @@ updatecov:
 updatedoc:
   script:
    - npm install
-   - npm install esdoc
+   - npm install -g esdoc
    - esdoc
    - cd doc/
    - git add .

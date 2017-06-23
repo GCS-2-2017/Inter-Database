@@ -157,7 +157,7 @@ describe('SQL Server connection', () => {
     const condition = { name: 'Workshift Test Update' }
 
     try {
-      var result = await SqlServerConnection.delete('*', table, condition)
+      var result = await SqlServerConnection.delete(undefined, table, condition)
       expect(result).to.be.empty
     } catch (error) {
       console.log(error)

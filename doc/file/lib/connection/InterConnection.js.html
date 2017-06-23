@@ -35,40 +35,66 @@
   <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/InterConfiguration.js~InterConfiguration.html">InterConfiguration</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration/dbs</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/dbs/MySQL.js~MySQL.html">MySQL</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/dbs/SQLServer.js~SQLServer.html">SQLServer</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">connection</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/InterConnection.js~InterDatabase.html">InterDatabase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">connection</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/InterConnection.js~InterConnection.html">InterConnection</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">connection/dbs</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/dbs/MySQL.js~MySQL.html">MySQL</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">consumption</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/consumption/InterDatabase.js~InterDatabase.html">InterDatabase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">helpers</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatInsertValues">formatInsertValues</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatObject">formatObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectDb">selectDb</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DB_NAMES">DB_NAMES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DB_PATHS">DB_PATHS</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">types/dbs</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertAttributeTypes">convertAttributeTypes</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/connection/InterConnection.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
+import InterConfiguration from &apos;../configuration/InterConfiguration&apos;
+import { selectDb } from &apos;../helpers/strategy&apos;
 
 const ERROR_MESSAGE = &apos;Can not call an abstract method.&apos;
 
-class InterDatabase {
-  constructor () {
-    if (this.constructor === InterDatabase) {
+class InterConnection {
+  /**
+  * Constructor implementation required
+  * @param {Object} [connection=null] An object with further options to connect database
+  * @excepetion {TypeError} thrown when tried to instatiate abstract class or type of connection is not know
+  */
+  constructor (connection) {
+    if (this.constructor === InterConnection) {
       throw new TypeError(&apos;Can not construct an Abstract class&apos;)
+    }
+    if (connection instanceof InterConfiguration) {
+      this.connection = connection
+    } else {
+      throw new TypeError(&apos;Connection type &apos; + typeof connection + &apos; not known.&apos;)
+    }
+  }
+
+  /**
+  * Implementaation required
+  * @param {Object} [connection=null]
+  * @exception {TypeError} thrown when type of connection is not know
+  * @return {Object} actual connnection based on database type
+  */
+  static getInstance (connection) {
+    if (this !== InterConnection) {
+      return this
+    }
+    if (connection instanceof InterConfiguration) {
+      let DbStrategy = selectDb(connection.config.type, &apos;../connection&apos;)
+
+      return new DbStrategy.default(connection)
+    } else {
+      throw new TypeError(&apos;Connection type &apos; + typeof connection + &apos; not known.&apos;)
     }
   }
 
   /**
   * Implementation required
-  */
-  table () {
-    throw new TypeError(ERROR_MESSAGE)
-  }
-
-  /**
-  * Implementation required
-  */
-  where () {
-    throw new TypeError(ERROR_MESSAGE)
-  }
-
-  /**
-  * Implementation required
+  * This method returns a array object as result from selected database
+  * @exception  {TypeError} thrown when a abstract method is called
   */
   orderBy () {
     throw new TypeError(ERROR_MESSAGE)
@@ -76,27 +102,50 @@ class InterDatabase {
 
   /**
   * Implementation required
+  * This method returns a array object as result which is a unique
+  * table constructed from two tables with attribute in common.
+  * @exception  {TypeError} thrown when a abstract method is called
   */
-  join () {
+  innerJoin () {
     throw new TypeError(ERROR_MESSAGE)
   }
 
   /**
   * Implementation required
+  * This method returns a array object as result which contains the
+  * information of the first table between A and B, which contains the
+  * attribute in common.
+  * @exception  {TypeError} thrown when a abstract method is called
   */
-  join_on () {
+  leftJoin () {
     throw new TypeError(ERROR_MESSAGE)
   }
 
   /**
   * Implementation required
+  * This method returns a array object as result which contains the
+  * information of the second table between A and B, which contains the
+  * attribute in common.
   */
-  db_link () {
+  rightJoin () {
     throw new TypeError(ERROR_MESSAGE)
   }
 
   /**
   * Implementation required
+  * This method returns a array object as result which contains the
+  * not in common informationsbetween A and B, which contains the
+  * attribute in common.
+  */
+  outerJoin () {
+    throw new TypeError(ERROR_MESSAGE)
+  }
+
+  /**
+  * Implementation required
+  * This method returns a array object as result which contains the informations
+  * about the request argument.
+  * @exception  {TypeError} thrown when a abstract method is called
   */
   select () {
     throw new TypeError(ERROR_MESSAGE)
@@ -104,6 +153,9 @@ class InterDatabase {
 
   /**
   * Implementation required
+  * This method return a array object as result which contains the informations
+  * about the table where the values were inserted.
+  * @exception  {TypeError} thrown when a abstract method is called
   */
   insert () {
     throw new TypeError(ERROR_MESSAGE)
@@ -111,6 +163,9 @@ class InterDatabase {
 
   /**
   * Implementation required
+  * This method return a array object as result which contains updated
+  * informations about requested argument.
+  * @exception  {TypeError} thrown when a abstract method is called
   */
   update () {
     throw new TypeError(ERROR_MESSAGE)
@@ -118,34 +173,16 @@ class InterDatabase {
 
   /**
   * Implementation required
+  * This method return a array object as result which contains updated
+  * informations whithout the values that was deleted.
+  * @exception  {TypeError} thrown when a abstract method is called
   */
   delete () {
     throw new TypeError(ERROR_MESSAGE)
   }
-
-  /**
-  * Implementation required
-  */
-  execute () {
-    throw new TypeError(ERROR_MESSAGE)
-  }
-
-  /**
-  * Implementation required
-  */
-  execute_cout () {
-    throw new TypeError(ERROR_MESSAGE)
-  }
-
-  /**
-  * Implementation required
-  */
-  catch () {
-    throw new TypeError(ERROR_MESSAGE)
-  }
 }
 
-export default InterDatabase
+export default InterConnection
 </code></pre>
 
 </div>

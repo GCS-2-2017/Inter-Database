@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/configuration/dbs/SQLServer.js | API Document</title>
+  <title data-ice="title">lib/types/dbs/SQLServer.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -48,36 +48,43 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/configuration/dbs/SQLServer.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
+<div class="content" data-ice="content"><h1 data-ice="title">lib/types/dbs/SQLServer.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import DataTypes from &apos;../data-types&apos;
 
-import tp from &apos;tedious-promises&apos;
-import _ from &apos;lodash&apos;
-import InterConfiguration from &apos;../InterConfiguration&apos;
-
-class SQLServer extends InterConfiguration {
-  constructor (database, user, password, options) {
-    super(database, user, password, options)
-    this.databasePort = options.port
-  }
-
-  getConfiguration () {
-    var connection = tp.setConnectionConfig({
-      userName : this.config.user,
-      password: this.config.password,
-      server : this.config.server,
-      options : {
-        rowCollectionOnRequestCompletion: true,
-			  port: this.config.port
+function convertDataTypes(attribute) {
+  var typeOf = &apos;&apos;
+  switch (typeof attribute) {
+    case &apos;string&apos;:
+      typeOf = DataTypes.STRING(attribute.length)
+      break
+    case &apos;number&apos;:
+      const isRealValue = attribute.toString().match(/./)
+      if(isRealValue) {
+        typeOf = DataTypes.DOUBLE()
+      } else {
+        typeOf = DataTypes.INT(attribute)
       }
-    })
-    // console.log(&apos;Connected in db: &apos;, _.omit(connection, &apos;password&apos;))
-    return connection
+      break
+    case Boolean:
+      typeOf = &apos; BOOLEAN &apos;
+      break
+    default:
+      // nothing to do
   }
+  return typeOf
 }
 
-export default SQLServer
-</code></pre>
+function convertAttributeTypes (object) {
+  var query = &apos;&apos;
+  for (var attribute of object) {
+    const convertedAttribute = convertDataTypes(object[attribute])
+    query += &apos; &apos; + attribute + &apos; &apos; + convertedAttribute
+  }
+  query = query.slice(0, -1)
+  return query
+}
+
+export { convertAttributeTypes }</code></pre>
 
 </div>
 

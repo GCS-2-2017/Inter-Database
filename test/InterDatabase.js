@@ -1,5 +1,5 @@
 import chai from 'chai'
-import InterDatabase from '../lib/consumption/InterDatabase'
+import { InterDatabase } from '../lib/consumption/InterDatabase'
 import MySQLConnection from '../lib/connection/dbs/MySQL'
 
 const expect = chai.expect

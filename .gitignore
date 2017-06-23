@@ -2,3 +2,4 @@ node_modules/
 *.lock
 *.swp
 *.log
+coverage

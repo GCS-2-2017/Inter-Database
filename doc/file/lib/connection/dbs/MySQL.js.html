@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/configuration/dbs/SQLServer.js | API Document</title>
+  <title data-ice="title">lib/connection/dbs/MySQL.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -48,35 +48,116 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/configuration/dbs/SQLServer.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/connection/dbs/MySQL.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
 
-import tp from &apos;tedious-promises&apos;
-import _ from &apos;lodash&apos;
-import InterConfiguration from &apos;../InterConfiguration&apos;
+import InterConnection from &apos;../InterConnection&apos;
+import { formatObject, formatInserValues } from &apos;../../helpers/connection&apos;
 
-class SQLServer extends InterConfiguration {
-  constructor (database, user, password, options) {
-    super(database, user, password, options)
-    this.databasePort = options.port
+class MySQL extends InterConnection {
+  constructor (connection) {
+    super(connection)
   }
 
-  getConfiguration () {
-    var connection = tp.setConnectionConfig({
-      userName : this.config.user,
-      password: this.config.password,
-      server : this.config.server,
-      options : {
-        rowCollectionOnRequestCompletion: true,
-			  port: this.config.port
-      }
-    })
-    // console.log(&apos;Connected in db: &apos;, _.omit(connection, &apos;password&apos;))
-    return connection
+  async select (table, argument, object) {
+    let query = &apos;&apos;
+    if (object !== undefined) {
+      query = &apos;SELECT &apos; + argument + &apos; FROM&apos; + table + &apos; WHERE &apos; + formatObject(object) + &apos;;&apos;
+    } else {
+      query = &apos;SELECT &apos; + argument + &apos; FROM&apos; + table + &apos;;&apos;
+    }
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
+
+  async insert (table, object) {
+    const query = &apos;INSERT INTO &apos; + table + &apos; VALUES (&apos; + formatInsertValues(object) + &apos;);&apos;
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async update (table, condition, object) {
+    const query = &apos;UPDATE &apos; + table  + &apos; SET &apos; +  formatObject(object) + &apos; WHERE &apos; + formatObject(condition) + &apos;;&apos;
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async delete (argument, table, condition) {
+    let query = &apos;&apos;
+    if (object !== undefined) {
+      query = &apos;DELETE FROM &apos; + table + &apos; WHERE &apos; +  formatObject(condition) + &apos;;&apos;
+    } else if (condition !== undefined){
+      query = &apos;DELETE &apos; + argument + &apos; FROM &apos; + table + &apos;;&apos;
+    } else {
+      // Nothing to do
+    }
+
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async orderBy (argument, tables, sortObject) {
+    let query = &apos;&apos;
+
+    if (typeof argument !== &apos;string&apos;) {
+      argument = formatArray(argument)
+    } else {
+      // Nothing to do
+    }
+
+    if (typeof sortObject[0] === &apos;string&apos;) { // Check object type
+      query = &apos;SELECT &apos; + argument + &apos; FROM &apos; + table + &apos; ORDER BY &apos; + formatArray(sortObject) + &apos;;&apos;
+    }
+    else {
+      query = &apos;SELECT &apos; + argument + &apos; FROM &apos; + table + &apos; ORDER BY &apos; + formatSortObject(sortObject) + &apos;;&apos;
+    }
+
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async join (attribute1, attribute2, tableA, tableB, joinType) { // ex: tableA = {tableA: {attribute: value}}
+    const query = &apos;SELECT &apos; + attribute1 +  &apos;, &apos; + attribute2
+                  &apos; FROM &apos; + Object.keys(tableA) + &apos; AS A &apos; +
+                  joinType + &apos; JOIN&apos; + Object.keys(tableB) + &apos; AS B &apos; +
+                  &apos;ON &apos; + attribute1 + &apos; = &apos; + attribute2
+    try {
+      const result = await this.connection.sql(query).execute()
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
 }
 
-export default SQLServer
+export default MySQL
 </code></pre>
 
 </div>

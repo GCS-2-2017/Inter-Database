@@ -35,8 +35,15 @@
   <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/InterConfiguration.js~InterConfiguration.html">InterConfiguration</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">configuration/dbs</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/dbs/MySQL.js~MySQL.html">MySQL</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configuration/dbs/SQLServer.js~SQLServer.html">SQLServer</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">connection</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/InterConnection.js~InterDatabase.html">InterDatabase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">connection</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/InterConnection.js~InterConnection.html">InterConnection</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">connection/dbs</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/dbs/MySQL.js~MySQL.html">MySQL</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">consumption</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/consumption/InterDatabase.js~InterDatabase.html">InterDatabase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">helpers</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatInsertValues">formatInsertValues</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatObject">formatObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-selectDb">selectDb</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DB_NAMES">DB_NAMES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DB_PATHS">DB_PATHS</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">types/dbs</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertAttributeTypes">convertAttributeTypes</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -44,6 +51,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/configuration/InterConfiguration.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
 import _ from &apos;lodash&apos;
+import { selectDb } from &apos;../helpers/strategy&apos;
 
 class InterConfiguration {
   /**
@@ -109,18 +117,7 @@ class InterConfiguration {
       return this
     }
 
-    let DbStrategy
-
-    switch (options.type){
-      case &apos;mysql&apos;:
-        DbStrategy = require(&apos;./dbs/MySQL&apos;)
-        break
-      case &apos;sqlserver&apos;:
-        DbStrategy = require(&apos;./dbs/SQLServer&apos;)
-        break
-      default:
-        throw new Error(&apos;The class &apos; + options.type + &apos; is not yet supported. Implement your own and add it.&apos;)
-    }
+    let DbStrategy = selectDb(options.type, &apos;../configuration&apos;)
 
     return new DbStrategy.default(database, user, password, options)
   }

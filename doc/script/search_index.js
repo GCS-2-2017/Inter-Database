@@ -1,14 +1,26 @@
 window.esdocSearchIndex = [
   [
+    "inter-database/lib/helpers/strategy.js~db_names",
+    "variable/index.html#static-variable-DB_NAMES",
+    "<span>DB_NAMES</span> <span class=\"search-result-import-path\">inter-database/lib/helpers/strategy.js</span>",
+    "variable"
+  ],
+  [
+    "inter-database/lib/helpers/strategy.js~db_paths",
+    "variable/index.html#static-variable-DB_PATHS",
+    "<span>DB_PATHS</span> <span class=\"search-result-import-path\">inter-database/lib/helpers/strategy.js</span>",
+    "variable"
+  ],
+  [
     "inter-database/lib/configuration/interconfiguration.js~interconfiguration",
     "class/lib/configuration/InterConfiguration.js~InterConfiguration.html",
     "<span>InterConfiguration</span> <span class=\"search-result-import-path\">inter-database/lib/configuration/InterConfiguration.js</span>",
     "class"
   ],
   [
-    "inter-database/lib/connection/interconnection.js~interdatabase",
-    "class/lib/connection/InterConnection.js~InterDatabase.html",
-    "<span>InterDatabase</span> <span class=\"search-result-import-path\">inter-database/lib/connection/InterConnection.js</span>",
+    "inter-database/lib/connection/interconnection.js~interconnection",
+    "class/lib/connection/InterConnection.js~InterConnection.html",
+    "<span>InterConnection</span> <span class=\"search-result-import-path\">inter-database/lib/connection/InterConnection.js</span>",
     "class"
   ],
   [
@@ -24,10 +36,40 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "inter-database/lib/connection/dbs/mysql.js~mysql",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html",
+    "<span>MySQL</span> <span class=\"search-result-import-path\">inter-database/lib/connection/dbs/MySQL.js</span>",
+    "class"
+  ],
+  [
     "inter-database/lib/configuration/dbs/sqlserver.js~sqlserver",
     "class/lib/configuration/dbs/SQLServer.js~SQLServer.html",
     "<span>SQLServer</span> <span class=\"search-result-import-path\">inter-database/lib/configuration/dbs/SQLServer.js</span>",
     "class"
+  ],
+  [
+    "inter-database/lib/types/dbs/sqlserver.js~convertattributetypes",
+    "function/index.html#static-function-convertAttributeTypes",
+    "<span>convertAttributeTypes</span> <span class=\"search-result-import-path\">inter-database/lib/types/dbs/SQLServer.js</span>",
+    "function"
+  ],
+  [
+    "inter-database/lib/helpers/connection.js~formatinsertvalues",
+    "function/index.html#static-function-formatInsertValues",
+    "<span>formatInsertValues</span> <span class=\"search-result-import-path\">inter-database/lib/helpers/connection.js</span>",
+    "function"
+  ],
+  [
+    "inter-database/lib/helpers/connection.js~formatobject",
+    "function/index.html#static-function-formatObject",
+    "<span>formatObject</span> <span class=\"search-result-import-path\">inter-database/lib/helpers/connection.js</span>",
+    "function"
+  ],
+  [
+    "inter-database/lib/helpers/strategy.js~selectdb",
+    "function/index.html#static-function-selectDb",
+    "<span>selectDb</span> <span class=\"search-result-import-path\">inter-database/lib/helpers/strategy.js</span>",
+    "function"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~array",
@@ -444,88 +486,130 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#catch",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-catch",
-    "lib/connection/InterConnection.js~InterDatabase#catch",
+    "lib/connection/interconnection.js~interconnection#connection",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-member-connection",
+    "lib/connection/InterConnection.js~InterConnection#connection",
+    "member"
+  ],
+  [
+    "lib/connection/interconnection.js~interconnection#constructor",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-constructor-constructor",
+    "lib/connection/InterConnection.js~InterConnection#constructor",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#constructor",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-constructor-constructor",
-    "lib/connection/InterConnection.js~InterDatabase#constructor",
+    "lib/connection/interconnection.js~interconnection#delete",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-delete",
+    "lib/connection/InterConnection.js~InterConnection#delete",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#db_link",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-db_link",
-    "lib/connection/InterConnection.js~InterDatabase#db_link",
+    "lib/connection/interconnection.js~interconnection#innerjoin",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-innerJoin",
+    "lib/connection/InterConnection.js~InterConnection#innerJoin",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#delete",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-delete",
-    "lib/connection/InterConnection.js~InterDatabase#delete",
+    "lib/connection/interconnection.js~interconnection#insert",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-insert",
+    "lib/connection/InterConnection.js~InterConnection#insert",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#execute",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-execute",
-    "lib/connection/InterConnection.js~InterDatabase#execute",
+    "lib/connection/interconnection.js~interconnection#leftjoin",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-leftJoin",
+    "lib/connection/InterConnection.js~InterConnection#leftJoin",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#execute_cout",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-execute_cout",
-    "lib/connection/InterConnection.js~InterDatabase#execute_cout",
+    "lib/connection/interconnection.js~interconnection#orderby",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-orderBy",
+    "lib/connection/InterConnection.js~InterConnection#orderBy",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#insert",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-insert",
-    "lib/connection/InterConnection.js~InterDatabase#insert",
+    "lib/connection/interconnection.js~interconnection#outerjoin",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-outerJoin",
+    "lib/connection/InterConnection.js~InterConnection#outerJoin",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#join",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-join",
-    "lib/connection/InterConnection.js~InterDatabase#join",
+    "lib/connection/interconnection.js~interconnection#rightjoin",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-rightJoin",
+    "lib/connection/InterConnection.js~InterConnection#rightJoin",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#join_on",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-join_on",
-    "lib/connection/InterConnection.js~InterDatabase#join_on",
+    "lib/connection/interconnection.js~interconnection#select",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-select",
+    "lib/connection/InterConnection.js~InterConnection#select",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#orderby",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-orderBy",
-    "lib/connection/InterConnection.js~InterDatabase#orderBy",
+    "lib/connection/interconnection.js~interconnection#update",
+    "class/lib/connection/InterConnection.js~InterConnection.html#instance-method-update",
+    "lib/connection/InterConnection.js~InterConnection#update",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#select",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-select",
-    "lib/connection/InterConnection.js~InterDatabase#select",
+    "lib/connection/interconnection.js~interconnection.getinstance",
+    "class/lib/connection/InterConnection.js~InterConnection.html#static-method-getInstance",
+    "lib/connection/InterConnection.js~InterConnection.getInstance",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#table",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-table",
-    "lib/connection/InterConnection.js~InterDatabase#table",
+    "lib/connection/dbs/mysql.js",
+    "file/lib/connection/dbs/MySQL.js.html",
+    "lib/connection/dbs/MySQL.js",
+    "file"
+  ],
+  [
+    "lib/connection/dbs/mysql.js~mysql#constructor",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html#instance-constructor-constructor",
+    "lib/connection/dbs/MySQL.js~MySQL#constructor",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#update",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-update",
-    "lib/connection/InterConnection.js~InterDatabase#update",
+    "lib/connection/dbs/mysql.js~mysql#delete",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html#instance-method-delete",
+    "lib/connection/dbs/MySQL.js~MySQL#delete",
     "method"
   ],
   [
-    "lib/connection/interconnection.js~interdatabase#where",
-    "class/lib/connection/InterConnection.js~InterDatabase.html#instance-method-where",
-    "lib/connection/InterConnection.js~InterDatabase#where",
+    "lib/connection/dbs/mysql.js~mysql#insert",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html#instance-method-insert",
+    "lib/connection/dbs/MySQL.js~MySQL#insert",
     "method"
+  ],
+  [
+    "lib/connection/dbs/mysql.js~mysql#join",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html#instance-method-join",
+    "lib/connection/dbs/MySQL.js~MySQL#join",
+    "method"
+  ],
+  [
+    "lib/connection/dbs/mysql.js~mysql#orderby",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html#instance-method-orderBy",
+    "lib/connection/dbs/MySQL.js~MySQL#orderBy",
+    "method"
+  ],
+  [
+    "lib/connection/dbs/mysql.js~mysql#select",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html#instance-method-select",
+    "lib/connection/dbs/MySQL.js~MySQL#select",
+    "method"
+  ],
+  [
+    "lib/connection/dbs/mysql.js~mysql#update",
+    "class/lib/connection/dbs/MySQL.js~MySQL.html#instance-method-update",
+    "lib/connection/dbs/MySQL.js~MySQL#update",
+    "method"
+  ],
+  [
+    "lib/connection/dbs/sqlserver.js",
+    "file/lib/connection/dbs/SQLServer.js.html",
+    "lib/connection/dbs/SQLServer.js",
+    "file"
   ],
   [
     "lib/consumption/interdatabase.js",
@@ -546,9 +630,39 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/consumption/interdatabase.js~interdatabase#interconnection",
+    "class/lib/consumption/InterDatabase.js~InterDatabase.html#instance-member-interConnection",
+    "lib/consumption/InterDatabase.js~InterDatabase#interConnection",
+    "member"
+  ],
+  [
+    "lib/helpers/connection.js",
+    "file/lib/helpers/connection.js.html",
+    "lib/helpers/connection.js",
+    "file"
+  ],
+  [
+    "lib/helpers/strategy.js",
+    "file/lib/helpers/strategy.js.html",
+    "lib/helpers/strategy.js",
+    "file"
+  ],
+  [
+    "lib/types/data-types.js",
+    "file/lib/types/data-types.js.html",
+    "lib/types/data-types.js",
+    "file"
+  ],
+  [
     "lib/types/dbs/mysql.js",
     "file/lib/types/dbs/MySQL.js.html",
     "lib/types/dbs/MySQL.js",
+    "file"
+  ],
+  [
+    "lib/types/dbs/sqlserver.js",
+    "file/lib/types/dbs/SQLServer.js.html",
+    "lib/types/dbs/SQLServer.js",
     "file"
   ]
 ]

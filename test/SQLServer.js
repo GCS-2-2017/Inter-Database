@@ -41,6 +41,7 @@ describe('SQL Server connection', () => {
       expect(result).to.be.empty
     } catch (error) {
       console.log(error)
+      throw error
     }
   })
 
@@ -59,6 +60,7 @@ describe('SQL Server connection', () => {
       expect(result).to.be.a('array')
     } catch (error) {
       console.log(error)
+      throw error
     }
   })
 
@@ -76,6 +78,7 @@ describe('SQL Server connection', () => {
       expect(result).to.be.a('array')
     } catch (error) {
       console.log(error)
+      throw error
     }
   })
 
@@ -91,11 +94,31 @@ describe('SQL Server connection', () => {
     const table = '[SEQUENCIALIZADOR].[dbo].[WorkShift]'
     const column = 'name' 
     try {
-      var result = await SqlServerConnection.select(table, '*')
-      console.log(result)
+      var result = await SqlServerConnection.selectDistinct(table, '*')
       expect(result).to.be.a('array')
     } catch (error) {
       console.log(error)
+      throw error
+    }
+  })
+
+  // Select Top Test
+
+  it('should use selectTop method with two parameters (table, column)', async () => {
+    const SQL = new SQLServer('teste', 'sa','12345678', {
+      port: '9990',
+      server: '177.143.213.117'
+    })
+    const SqlServerConnection = new Connection(SQL)
+
+    const table = '[SEQUENCIALIZADOR].[dbo].[WorkShift]'
+
+    try {
+      var result = await SqlServerConnection.selectTop(table, 3)
+      expect(result).to.have.lengthOf(3)
+    } catch (error) {
+      console.log(error)
+      throw error
     }
   })
 
@@ -117,6 +140,7 @@ describe('SQL Server connection', () => {
       expect(result).to.be.empty
     } catch (error) {
       console.log(error)
+      throw error
     }
   })
 
@@ -137,6 +161,7 @@ describe('SQL Server connection', () => {
       expect(result).to.be.empty
     } catch (error) {
       console.log(error)
+      throw error
     }
   })
 

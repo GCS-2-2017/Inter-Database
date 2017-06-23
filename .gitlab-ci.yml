@@ -12,6 +12,7 @@ test:
 updatecov:
   script:
     - npm install
+    - npm install babel-cli
     - npm install codecov
     - babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha test && codecov -t 1bfb0639-fb2f-4615-8b60-1318ba0379fe
 

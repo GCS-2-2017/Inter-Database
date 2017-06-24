@@ -1,6 +1,6 @@
 {
   "name": "inter-database",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Framework to comunnicate with databases",
   "main": "index.js",
   "scripts": {

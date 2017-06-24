@@ -58,13 +58,217 @@
 
 <p align="justify">&emsp;&emsp;Com isso, o Inter Database por completo é um <i>framework</i> Caixa Cinza, que engloba tanto <i>Frozen Spots</i> e <i>Hot Spots</i> e é hibrido por utilizar em sua arquitetura pontos Caixa Preta e Caixa Branca.</p>
 
+# 2. Guia de utilização
 
-# 2. Instalação
-## 2.1. Pré-requisitos
-## 2.2. Instalando o Framework
+### 2.1 Configuration
+<p align="justify">&emsp;&emsp;A configuração da conexão do banco de dados a ser utilizado é feita através de um <i>extends</i> da <b>InterConfiguration.js</b>. Onde ao final de sua implementação o objetivo é ter uma conexão estabelecida com o banco desejado. </p>
 
-# 3. Utilizando o Framework
+#### constructor()
+<p align="justify">&emsp;&emsp; O construtor herdado da InterConfiguration deve possuir o nome da base de dados, usuário, senha e as opções. Em alguns bancos são necessárias outras informações, como por exemplo o número da porta, mas ao se passar essas quatro informações a configuração da conexão é efetuada normalmente.</p>
 
-# 4. Licença
+```javascript
+const INTERDB = new InterDatabase('database', 'use', 'password', {
+  host: 'localhost',
+  type: 'mysql'
+}) // Setando a configuração de um banco MySQL genérico 
+```
+
+#### getConfiguration()
+<p align="justify">Nesse método a configuração para a conexão com o banco desejado é feita, e  o retorno é o resultado da conexão feita. </p>
+
+```javascript
+const connection = INTERDB.getConfiguration() // Conexão com o banco requerido
+```
+### 2.2 Connection
+<p align="justify">&emsp;&emsp; Após a configuração ter sido feita e a conexão estabelecida, a <b>Connection</b> permite uma fácil manipulação e acesso aos dados. Ela é implementada como um <i>extends</i> da <b>InterConnection.js</b>.</p>
+
+#### constructor()
+<p align="justify">&emsp;&emsp; O construtor herdado da InterConnection deve possuir apenas um objeto que possui as opções de configuração do banco, que no exemplo seria o <b>connection</b>.</p>
+
+```javascript
+const CONNECTION = new SQLServer(connection) // Objeto de conexão do SQL Server
+```
+```javascript
+const CONNECTION = new MySQL(connection) // Objeto de conexão do SQL Server
+```
+
+#### select()
+<p align="justify">&emsp;&emsp; Este método tem como objetivo retornar no banco um conjunto de tuplas em forma de objetos JSON, referente ao argumento solicitado, contidas na tabela indicada.</p>
+
+```javascript
+let table = 'User'
+
+CONNECTION.select(table, '*') // Recuperando todas as tuplas da tabela User
+```
+
+<p align="justify">&emsp;&emsp;Ou até mesmo passando uma condição, que em SQL é representado pelo WHERE.</p>
+
+```javascript
+let condition = { Name: 'Danilo' }
+
+CONNECTION.select(table, '*', condition) // Recuperando todas as tuplas da tabela User onde o atributo Name = Danilo
+```
+
+#### insert()
+<p align="justify">&emsp;&emsp; Este método tem como objetivo inserir na tabela uma nova tupla, enviando um conjunto de informações contidas no <i>object</i>, que é um JSON que deve ser criado com as informações requeridas.</p>
+
+```javascript
+let table = 'User'
+let object = {
+  name: 'Vitor',
+  age: '21'
+}
+
+CONNECTION.insert(table, object) // Insere o objeto na tabela User e cria um novo registro
+```
+
+#### update()
+<p align="justify">&emsp;&emsp; Este método tem como objetivo atualizar a tabela indicada, inserindo um conjunto de informações através do <i>object</i>, de acordo com uma condição definida. Essa condição seria, por exemplo, um identificador no conjunto de dados.</p>
+
+```javascript
+let table = 'User'
+let object = {
+  name: 'Cecilia'
+}
+let condition = { name: 'Vitor' }
+
+CONNECTION.update(table, condition, object) // Atualizando todos os registros ta tabela User que tem o atributo name = Vitor
+```
+
+#### delete()
+<p align="justify">&emsp;&emsp; Este método tem como objetivo apagar uma determinada tupla em uma determinada tabela, solicitada pelo usuário. Este registro sera excluído de acordo com uma condição definida, como foi exemplificado no tópico anterior.</p>
+
+```javascript
+let table = 'User'
+let condition = { name: 'Cecilia' }
+
+CONNECTION.delete('*', table, condition) // Apagando todos os registros da tabela User que o atributo name = Cecilia
+```
+
+#### orderBy()
+<p align="justify">&emsp;&emsp; Este método é utilizado para ordenar os registros de uma tabela de forma crescente ou decrescente no banco de dados. Através do <i>argument</i> dizemos qual argumento na tabela a ser ordenado e o <i>sortColumns</i> diz como cada coluna será ordenada.</p>
+
+```javascript
+let table = 'User'
+let sortColumns = {
+  name: ASC,
+  age: DESC
+}
+
+CONNECTION.orderBy('*', table, sortColumns) // Retorna um array de colunas ordenadas, de acordo com o SortColumns
+```
+
+#### innerJoin()
+<p align="justify">&emsp;&emsp; Esse método é utilizado para pegar no banco um conjunto de informações relacionadas, através de atributos em comum entre duas tabelas. </p>
+
+```javascript
+let tableA = {
+  colunm: 'name' 
+}
+let tableB = {
+  colunm: 'name' 
+}
+
+CONNECTION.innerJoin(tableA.colunm, tableB.colunm, tableA, tableB)
+```
+
+#### leftJoin()
+<p align="justify">&emsp;&emsp;Este método tem como objetivo pegar no banco um conjunto de informações através de atributos em comum entre duas tabelas. Seu diferencial é que as informações a serem retornadas são referentes a primeira tabela, somadas as informações em comum entre as duas.</p>
+
+```javascript
+CONNECTION.leftJoin(tableA.colunm, tableB.colunm, tableA, tableB)
+```
+
+#### rightJoin()
+<p align="justify">&emsp;&emsp;Este método tem como objetivo pegar no banco um conjunto de informações através de atributos em comum entre duas tabelas. Neste caso, as informações a serem retornadas são referentes a segunda tabela, somadas as informações em comum entre as duas.</p>
+
+```javascript
+CONNECTION.rightJoin(tableA.colunm, tableB.colunm, tableA, tableB)
+```
+
+#### outerJoin()
+<p align="justify">&emsp;&emsp; Este método será utilizado quando a intenção é recuperar do banco um conjunto de informações de duas tabelas através de atributos em comum entre elas, mas, neste caso, as informações a serem retornadas são tudo que as duas tabelas não possuem em comum.</p>
+
+```javascript
+CONNECTION.outerJoin(tableA.colunm, tableB.colunm, tableA, tableB)
+```
+
+### 2.3 Criando sua própria classe concreta
+
+<p align="justify">&emsp;&emsp; O <i>framework</i> permite que o usuário adicione classes próprias na hierarquia das especificadas, (<i>Connection</i> e <i>Configuration</i>) (<i><b>HotSpot</b></i>), isso permite que o usuário tenha a facilidade de adicionar sua classe em tempo de execução na hierarquia e estratégia de uso dos banco de dados. Além disso, a pessoa que esteja interessada no uso do <i>framework</i>, pode usufruir da herança no que se diz respeito à métodos já implementados pela classe pai, sendo assim evita reescrita de código por parte do usuário.</p>
+
+<p align="justify">&emsp;&emsp; Dessa forma é necessário que o usuário saiba qual e o padrão esperado pelas classes a serem adicionadas.</p>
+
+#### addDB(newConfigClass, newConnectionClass)
+<p align="justify">&emsp;&emsp; Esse método se encontra na classe <b><i>InterDatabase</i></b> e é aqui que a classe filha é criada. Para adicionar uma classe no framework é necessário criar dois objetos <b><i>newConfigClass</i></b> e <b><i>newConnectionClass</i></b>, sendo que esses objetos seguem a conformidade a baixo:</p>
+
+##### newConfigClass
+```javascript
+/**
+* O objeto deve ser contruído no formato:
+* key: anonymousFunction,
+* key: anonymousFunction
+*
+* Onde key é igual ao nome da função referência com assinatura na classe abstrata.
+*/
+
+{
+  select: (table, argument, object, thisInstance) => {
+    // custom implementation
+    return Object
+  },
+
+  selectDistinct: (table, argument, thisInstance) => {
+    // custom implementation
+    return Object
+  }
+  /*
+    ... all other required methods and custom methods.
+  */
+}
+```
+
+##### newConnectionClass
+```javascript
+/**
+* O objeto deve ser contruído no formato:
+* type: 'database name',
+* key: anonymousFunction,
+* key: anonymousFunction
+*
+* Onde key é igual ao nome da função referência com assinatura na classe abstrata
+* e a key type é obrigatória.
+*/
+
+{
+  type: 'sqlite',
+
+  getConfiguration: (thisInstance) => {
+    // custom implementation
+    return Object
+  }
+}
+```
+
+Após criado esses objetos deve-se chamar a referência de _InterDatabase_ e invocar o método _addDB_ passando ambos objetos `InterDatabase.addDB(newConfigClass, newConnectionClass)`.
+
+O método retorna verdadeiro ou falso, dependendo do sucesso da adição da classe. Para mais informações no método consulte a [documentação](https://inter-database-documentation.herokuapp.com).
+
+#### 2.3.1. Utilizando a nova classe
+Para instanciar um novo objeto da classe adicionada basta seguir os mesmos passos de uma instanciação normal. Onde é necessário apenas invocar o construtor de **_InterDatabase_** e prover o tipo especificado no objeto de configuração (_type_). Sendo assim sua utilização se tornaria:
+
+```javascript
+let myNewClass = new InterDatabase('test', 'root', 'root', {
+                                    type: 'sqlite'
+                                  })
+```
+
+# 3. Instalação
+## 3.1. Pré-requisitos
+## 3.2. Instalando o Framework
+
+# 4. Utilizando o Framework
+
+# 5. Licença
 
 Inter Database é distribuído sob a licença MIT. Consulte [MIT LICENSE](https://gitlab.com/Desenho-2017-1/Inter-Database/blob/development/LICENSE) para obter detalhes.

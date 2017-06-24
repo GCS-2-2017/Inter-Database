@@ -58,9 +58,27 @@
 
 <p align="justify">&emsp;&emsp;Com isso, o Inter Database por completo é um <i>framework</i> Caixa Cinza, que engloba tanto <i>Frozen Spots</i> e <i>Hot Spots</i> e é hibrido por utilizar em sua arquitetura pontos Caixa Preta e Caixa Branca.</p>
 
-# 2. Guia de utilização
+# 2. Instalando o Framework
 
-### 2.1 Configuration
+### Instalando o módulo inter-database
+
+<p align="justify">&emsp;&emsp; O pacote está disponível pelo <a href="https://www.npmjs.com/">npm</a>: </p>
+
+```bash
+$ npm install --save inter-database
+```
+
+### Código
+
+<p align="justify">&emsp;&emsp;Importe o inter-database no inicio do seu código para utilizá-lo:</p>
+
+```javascript
+import InterDatabase from 'inter-database' // Importando o módulo npm
+```
+
+# 3. Guia de utilização
+
+### 3.1 Configuration
 <p align="justify">&emsp;&emsp;A configuração da conexão do banco de dados a ser utilizado é feita através de um <i>extends</i> da <b>InterConfiguration.js</b>. Onde ao final de sua implementação o objetivo é ter uma conexão estabelecida com o banco desejado. </p>
 
 #### constructor()
@@ -79,7 +97,7 @@ const INTERDB = new InterDatabase('database', 'use', 'password', {
 ```javascript
 const connection = INTERDB.getConfiguration() // Conexão com o banco requerido
 ```
-### 2.2 Connection
+### 3.2 Connection
 <p align="justify">&emsp;&emsp; Após a configuração ter sido feita e a conexão estabelecida, a <b>Connection</b> permite uma fácil manipulação e acesso aos dados. Ela é implementada como um <i>extends</i> da <b>InterConnection.js</b>.</p>
 
 #### constructor()
@@ -193,7 +211,7 @@ CONNECTION.rightJoin(tableA.colunm, tableB.colunm, tableA, tableB)
 CONNECTION.outerJoin(tableA.colunm, tableB.colunm, tableA, tableB)
 ```
 
-### 2.3 Criando sua própria classe concreta
+### 3.3 Criando sua própria classe concreta
 
 <p align="justify">&emsp;&emsp; O <i>framework</i> permite que o usuário adicione classes próprias na hierarquia das especificadas, (<i>Connection</i> e <i>Configuration</i>) (<i><b>HotSpot</b></i>), isso permite que o usuário tenha a facilidade de adicionar sua classe em tempo de execução na hierarquia e estratégia de uso dos banco de dados. Além disso, a pessoa que esteja interessada no uso do <i>framework</i>, pode usufruir da herança no que se diz respeito à métodos já implementados pela classe pai, sendo assim evita reescrita de código por parte do usuário.</p>
 
@@ -254,7 +272,7 @@ Após criado esses objetos deve-se chamar a referência de _InterDatabase_ e inv
 
 O método retorna verdadeiro ou falso, dependendo do sucesso da adição da classe. Para mais informações no método consulte a [documentação](https://inter-database-documentation.herokuapp.com).
 
-#### 2.3.1. Utilizando a nova classe
+#### 3.3.1. Utilizando a nova classe
 Para instanciar um novo objeto da classe adicionada basta seguir os mesmos passos de uma instanciação normal. Onde é necessário apenas invocar o construtor de **_InterDatabase_** e prover o tipo especificado no objeto de configuração (_type_). Sendo assim sua utilização se tornaria:
 
 ```javascript
@@ -263,12 +281,6 @@ let myNewClass = new InterDatabase('test', 'root', 'root', {
                                   })
 ```
 
-# 3. Instalação
-## 3.1. Pré-requisitos
-## 3.2. Instalando o Framework
-
-# 4. Utilizando o Framework
-
-# 5. Licença
+# 4. Licença
 
 Inter Database é distribuído sob a licença MIT. Consulte [MIT LICENSE](https://gitlab.com/Desenho-2017-1/Inter-Database/blob/development/LICENSE) para obter detalhes.
